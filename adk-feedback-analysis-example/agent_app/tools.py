@@ -15,6 +15,7 @@ def get_stock_price(ticker: str) -> dict:
     print(f"--- Tool: get_stock_price called for ticker: {ticker} ---")
     mock_stock_db = {
         "GOOGL": "175.50 USD",
+        "GOOG": "176.50 USD",
         "MSFT": "427.80 USD",
     }
     price = mock_stock_db.get(ticker.upper(), "stock price not available for this ticker.")
