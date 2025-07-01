@@ -8,13 +8,16 @@ from typing import AsyncGenerator, List
 import asyncio
 import warnings
 from .prompts import RETRY_AGENT_INSTRUCTIONS
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 # Suppress experimental feature warnings from Google ADK
 warnings.filterwarnings("ignore", message=".*EXPERIMENTAL.*", category=UserWarning)
 
 # Initialize the genai client
 client = genai.Client(
-    vertexai=True, project='heikohotz-genai-sa', location='us-central1'
+    vertexai=True, project=os.getenv('GOOGLE_CLOUD_PROJECT'), location=os.getenv('GOOGLE_CLOUD_LOCATION')
 )
 
 class RetryableLlm(BaseLlm):
