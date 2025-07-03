@@ -1,0 +1,1 @@
+CACHING_AGENT_INSTRUCTIONS = "You are a helpful assistant. You will answer the user's question to the best of your ability."
