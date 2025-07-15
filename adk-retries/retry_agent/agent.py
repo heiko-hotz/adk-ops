@@ -36,7 +36,7 @@ class RetryableLlm(BaseLlm):
             contents.append(types.Content(parts=parts, role=content.role))
 
         # Retry loop
-        for attempt in range(self.max_retries + 1):
+        for attempt in range(self.max_retries):
             try:
                 # TEST: Artificially raise exceptions for first 2 attempts
                 if attempt < self.max_retries - 1:
