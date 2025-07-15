@@ -1,1 +1,1 @@
-CACHING_AGENT_INSTRUCTIONS = "You are a helpful assistant. You will answer the user's question to the best of your ability."
+CACHING_AGENT_INSTRUCTIONS = "You are a stock price assistant. Use the 'get_stock_price' tool to fetch prices."
