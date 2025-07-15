@@ -18,7 +18,6 @@ load_dotenv()
 
 warnings.filterwarnings("ignore", message=".*EXPERIMENTAL.*", category=UserWarning)
 
-# Initialize the genai client for Vertex AI, exactly as in the template
 client = genai.Client(
     vertexai=True, project=os.getenv('GOOGLE_CLOUD_PROJECT'), location=os.getenv('GOOGLE_CLOUD_LOCATION')
 )
@@ -50,13 +49,11 @@ class CachingLlm(BaseLlm):
 
         print(f"\n❌ Cache MISS. Calling the underlying model: {self.model}")
         
-        # Convert ADK request format to genai format, exactly as per the template
         contents: List[types.Content] = []
         for content in request.contents:
             parts = [types.Part(text=part.text) for part in content.parts]
             contents.append(types.Content(parts=parts, role=content.role))
 
-        # Make the request using the exact syntax from the template
         response = await client.aio.models.generate_content(
             model=self.model,
             contents=contents,
