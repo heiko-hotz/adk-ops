@@ -36,11 +36,23 @@ class RoutingLlm(BaseLlm):
             parts = [types.Part(text=part.text) for part in content.parts]
             contents.append(types.Content(parts=parts, role=content.role))
 
-        # Determine the full text for routing logic
-        full_request_text = " ".join([part.text for content in contents for part in content.parts if part.text])
+        # Determine the current user message for routing logic
+        # Get only the last user message (current request)
+        current_user_message = ""
+        for content in reversed(contents):
+            if content.role == "user":
+                current_user_message = " ".join([part.text for part in content.parts if part.text])
+                break
+        
+        # Fallback: if no user message found, use the last content
+        if not current_user_message and contents:
+            last_content = contents[-1]
+            current_user_message = " ".join([part.text for part in last_content.parts if part.text])
 
-        # Simple routing logic based on prompt length
-        if len(full_request_text) > 100:
+        print(f"Current user message: {current_user_message}")
+
+        # Simple routing logic based on current user message length
+        if len(current_user_message) > 50:
             model_to_use = "gemini-2.5-pro"
             print(f"\nRouting to POWERFUL model: {model_to_use}")
         else:
